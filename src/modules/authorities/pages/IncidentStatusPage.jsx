@@ -106,7 +106,7 @@ export default function IncidentStatusPage() {
           🚨 Created: {formatTime(incident.created_at)}
         </p>
 
-        {incident.is_escalated && (
+        {incident.status === "escalated"&& (
           <p className="text-yellow-400">
             ⬆️ Escalated at: {formatTime(incident.escalated_at)}
           </p>
