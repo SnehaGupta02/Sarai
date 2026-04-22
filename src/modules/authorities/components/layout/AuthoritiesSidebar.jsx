@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export default function AuthoritiesSidebar() {
   const navigate = useNavigate();
@@ -26,6 +27,14 @@ export default function AuthoritiesSidebar() {
       >
         Resources
       </p>
+
+      {/* 💬 Chat (NEW) */}
+      <NavLink
+        to="/authorities/chat"
+        className="block px-2 py-1 text-slate-400 hover:text-white hover:bg-slate-700 rounded"
+      >
+         Chat
+      </NavLink>
 
     </div>
   );

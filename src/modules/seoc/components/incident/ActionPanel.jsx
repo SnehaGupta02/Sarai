@@ -1,12 +1,12 @@
 import { useNavigate } from "react-router-dom";
 
-export default function ActionPanel({ incident }) {
+export default function ActionPanel({ incident, onOpenStatus }) {
   const navigate = useNavigate();
 
   return (
     <div className="flex flex-wrap gap-3">
 
-      {/* ADD TEAM → PAGE */}
+      {/* ADD TEAM */}
       <button
         onClick={() =>
           navigate(`/seoc/incident/${incident.id}/assign-team`)
@@ -16,7 +16,7 @@ export default function ActionPanel({ incident }) {
         Add Team (SEOC)
       </button>
 
-      {/* RESOURCES */}
+      {/* ALLOCATE RESOURCES */}
       <button
         onClick={() =>
           navigate(`/seoc/incident/${incident.id}/resources`)
@@ -26,11 +26,9 @@ export default function ActionPanel({ incident }) {
         Allocate Resources
       </button>
 
-      {/* STATUS */}
+      {/* ✅ STATUS (NOW CONTROLLED BY PARENT MODAL) */}
       <button
-        onClick={() =>
-          navigate(`/seoc/incident/${incident.id}/status`)
-        }
+        onClick={onOpenStatus}
         className="bg-yellow-600 px-4 py-2 rounded hover:bg-yellow-700"
       >
         Update Status

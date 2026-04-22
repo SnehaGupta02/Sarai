@@ -8,6 +8,7 @@ import IncidentDetail from "../pages/IncidentDetail";
 import SeocAssignTeam from "../pages/SeocAssignTeam";
 import SeocResources from "../pages/SeocResources";
 import SeocDeployments from "../pages/SeocDeployments";
+import SeocChat from "../pages/SeocChat";
 
 import ProtectedRoute from "../../authorities/components/ProtectedRoute";
 
@@ -43,7 +44,7 @@ export default function SeocRoutes() {
         <Route path="deployments" element={<SeocDeployments />} />
 
       </Route>
-
+<Route path="chat" element={<SeocChat />} />
     </Routes>
   );
 }

@@ -7,6 +7,7 @@ import TeamSelectionPage from "../pages/TeamSelectionPage";
 import AuthoritiesLayout from "../components/layout/AuthoritiesLayout";
 import ResourceAllocationPage from "../pages/ResourceAllocationPage";
 import IncidentStatusPage from "../pages/IncidentStatusPage";
+import AuthoritiesChat from "../pages/AuthoritiesChat";
 
 import ProtectedRoute from "../components/ProtectedRoute";
 
@@ -39,7 +40,7 @@ export default function AuthoritiesRoutes() {
 />
 <Route path="incident/:id/status" element={<IncidentStatusPage />} />
       </Route>
-
+<Route path="chat" element={<AuthoritiesChat />} />
     </Routes>
   );
 }
