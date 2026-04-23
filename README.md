@@ -21,3 +21,5 @@ If you are developing a production application, we recommend using TypeScript wi
 - Added routing and navigation from Gateway
 - Unified Supabase client across modules
 - Improved UI with dark theme styling
+
+Central Dashboard integrated by Saumya Gupta
