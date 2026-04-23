@@ -1,0 +1,170 @@
+/* 🌑 FULL DARK THEME */
+body {
+  background: #0b1220;
+  color: #e2e8f0;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* ROOT FIX */
+#root {
+  min-height: 100vh;
+}
+
+/* 🧱 SIDEBAR */
+.sidebar {
+  background: #020617;
+  border-right: 1px solid #1e293b;
+}
+
+/* 🔝 TOP NAVBAR */
+.top-navbar {
+  background: #020617;
+  border-bottom: 1px solid #1e293b;
+}
+
+/* 📦 CARD */
+.card {
+  background: #111827 !important;
+  border: 1px solid #1f2937 !important;
+  border-radius: 14px;
+  color: #e2e8f0;
+  padding: 20px !important; /* ✅ FIXED spacing */
+}
+
+/* 📊 TABLE (FIXED DARK ISSUE) */
+.table {
+  color: #e2e8f0;
+  background: transparent !important; /* ✅ remove white bg */
+}
+
+.table td,
+.table th {
+  color: #e2e8f0 !important;
+  background: transparent !important;
+}
+
+.table thead {
+  background: #1f2937 !important; /* ✅ dark header */
+}
+
+.table-hover tbody tr:hover {
+  background: #1e293b;
+  cursor: pointer;
+}
+
+/* 🚨 ALERT CARD IMPROVED */
+.alert-card {
+  background: linear-gradient(135deg, #1f2937, #111827);
+  border-left: 5px solid #ef4444;
+  padding: 16px;
+  border-radius: 14px;
+  transition: 0.3s;
+}
+
+/* .alert-card:hover {
+  transform: scale(1.01);
+  box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
+} */
+
+/* 💬 CHAT */
+.chat-box {
+  height: 250px;
+  overflow-y: auto;
+}
+
+.chat-bubble {
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  max-width: 70%;
+}
+
+.chat-bubble.mha {
+  background: #2563eb;
+  color: white;
+  margin-left: auto;
+}
+
+.chat-bubble.seoc {
+  background: #1f2937;
+}
+
+/* 🎯 BUTTONS */
+.btn {
+  border-radius: 10px !important;
+}
+
+.btn-primary {
+  background: #3b82f6;
+  border: none;
+}
+
+.btn-danger {
+  background: #ef4444;
+  border: none;
+}
+
+.btn-warning {
+  background: #f59e0b;
+  border: none;
+  color: black;
+}
+
+.btn-success {
+  background: #22c55e;
+  border: none;
+}
+
+/* 📊 STAT CARDS */
+.stat-card {
+  border-radius: 14px;
+  padding: 20px;
+  color: white;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+
+.stat-blue {
+  background: linear-gradient(135deg, #3b82f6, #1e40af);
+}
+
+.stat-red {
+  background: linear-gradient(135deg, #ef4444, #7f1d1d);
+}
+
+.stat-yellow {
+  background: linear-gradient(135deg, #f59e0b, #78350f);
+}
+
+/* 🔗 NAV LINKS */
+.nav-link {
+  color: #94a3b8 !important;
+}
+
+.nav-link:hover {
+  color: #ffffff !important;
+}
+
+/* INPUTS */
+input, select {
+  background: #020617 !important;
+  color: #fff !important;
+  border: 1px solid #334155 !important;
+}
+
+/* HEADINGS FIX */
+h5 {
+  color: #f1f5f9;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 10px;
+}
+
+.card {
+  margin-bottom: 20px;
+}
