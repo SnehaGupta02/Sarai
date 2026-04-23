@@ -22,4 +22,4 @@ If you are developing a production application, we recommend using TypeScript wi
 - Unified Supabase client across modules
 - Improved UI with dark theme styling
 
-Central Dashboard integrated by Saumya Gupta
+Contributor: Saumya Gupta
