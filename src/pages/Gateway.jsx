@@ -23,7 +23,7 @@ const roles = [
   {
     title: "Central Govt",
     desc: "Monitor nationwide data",
-    route: "/super-admin",
+    route: "/central",
     icon: "🏛️",
   },
   {
