@@ -14,7 +14,7 @@ export default function AuthoritiesSidebar() {
         Dashboard
       </p>
 
-      <p
+      {/* <p
         onClick={() => navigate("/authorities/")}
         className="cursor-pointer hover:text-white text-slate-400"
       >
@@ -26,7 +26,7 @@ export default function AuthoritiesSidebar() {
         className="cursor-pointer hover:text-white text-slate-400"
       >
         Resources
-      </p>
+      </p> */}
 
       {/* 💬 Chat (NEW) */}
       <NavLink
