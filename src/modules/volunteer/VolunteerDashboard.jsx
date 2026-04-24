@@ -11,7 +11,7 @@ export default function VolunteerDashboard() {
 
   const load = async () => {
     const res = await getVolunteers();
-    setData(res);
+setData(res || []);
   };
 
   return (
