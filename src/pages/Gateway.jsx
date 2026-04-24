@@ -18,13 +18,13 @@ const roles = [
   {
     title: "Authorities",
     desc: "Manage incidents & teams",
-    route: "/admin",
+    route: "/authorities/auth",
     icon: "🧑‍💼",
   },
   {
     title: "Central Govt",
     desc: "Monitor nationwide data",
-    route: "/super-admin",
+    route: "/central",
     icon: "🏛️",
   },
   {
@@ -52,17 +52,8 @@ export default function Gateway() {
           <div
             key={index}
             style={styles.card}
-            onClick={() => {
-              if (role.route === "/citizen") {
-                if (user) {
-                  navigate("/citizen");
-                } else {
-                  navigate("/citizen/auth");
-                }
-              } else {
-                alert(`${role.title} module coming soon`);
-              }
-            }}
+            onClick={() => navigate(role.route)}
+            
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = "translateY(-10px) scale(1.03)";
               e.currentTarget.style.boxShadow =

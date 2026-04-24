@@ -47,147 +47,177 @@ function RescueHome() {
     }
   };
 
-  // 🔥 REAL-WORLD LOGIC
   const getPriority = () => {
-    if (peopleCount > 10) return { label: "High", color: "#ef4444" };
-    if (peopleCount > 5) return { label: "Medium", color: "#f59e0b" };
-    return { label: "Low", color: "#10b981" };
+    if (peopleCount > 10) return "High";
+    if (peopleCount > 5) return "Medium";
+    return "Low";
   };
 
   const priority = getPriority();
 
   return (
-  <div style={{ padding: "20px", background: "#f1f5f9", minHeight: "100vh" }}>
+    <div
+      style={{
+        padding: "20px",
+        background: "#0f172a",
+        minHeight: "100vh",
+        color: "#e2e8f0",
+        fontFamily: "system-ui",
+      }}
+    >
+      {/* 🔴 HEADER */}
+      <div
+        style={{
+          background: "linear-gradient(135deg, #1e3a8a, #2563eb)",
+          padding: "18px 24px",
+          borderRadius: "14px",
+          marginBottom: "20px",
+          boxShadow: "0 6px 25px rgba(0,0,0,0.4)",
+        }}
+      >
+        <h1 style={{ margin: 0 }}>🚨 Emergency Rescue Dashboard</h1>
+      </div>
 
-    {/* 🔴 HEADER */}
-    <div style={{
-      background: "#1e293b",
-      color: "white",
-      padding: "15px 20px",
-      borderRadius: "12px",
-      marginBottom: "20px"
-    }}>
-      <h1>🚨Emergency Rescue Dashboard</h1>
+      {incidents.map((item) => {
+        const priority = getPriority();
+
+        return (
+          <div key={item.id}>
+            {/* 🔥 INCIDENT SUMMARY */}
+            <div
+              style={{
+                background: "#1e293b",
+                padding: "15px",
+                borderRadius: "12px",
+                marginBottom: "20px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                border: "1px solid #334155",
+                boxShadow: "0 4px 12px rgba(0,0,0,0.4)",
+              }}
+            >
+              <span>📍 {item.location}, {item.district}</span>
+              <span>⚠ {item.disaster_type}</span>
+              <span>👥 {peopleCount} People</span>
+              <span>🚑 {ambulances}</span>
+
+              <span
+                style={{
+                  background:
+                    priority === "High"
+                      ? "#dc2626"
+                      : priority === "Medium"
+                      ? "#f59e0b"
+                      : "#16a34a",
+                  padding: "6px 12px",
+                  borderRadius: "8px",
+                  color: "#fff",
+                  fontWeight: "600",
+                  boxShadow: "0 0 10px rgba(0,0,0,0.5)",
+                }}
+              >
+                {priority}
+              </span>
+            </div>
+
+            {/* 🔥 MAIN GRID */}
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1.5fr",
+                gap: "20px",
+              }}
+            >
+              {/* 🟢 LEFT PANEL */}
+              <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+                
+                {/* INCIDENT DETAILS */}
+                <div
+                  style={{
+                    background: "#1e293b",
+                    padding: "20px",
+                    borderRadius: "12px",
+                    border: "1px solid #334155",
+                    boxShadow: "0 4px 12px rgba(0,0,0,0.4)",
+                  }}
+                >
+                  <h3 style={{ color: "#93c5fd" }}>📌 Incident Details</h3>
+                  <p><b>Status:</b> {item.status}</p>
+                  <p><b>Priority:</b> {priority}</p>
+                </div>
+
+                {/* ACTION PLAN */}
+                <div
+                  style={{
+                    background: "#1e293b",
+                    padding: "20px",
+                    borderRadius: "12px",
+                    border: "1px solid #334155",
+                    boxShadow: "0 4px 12px rgba(0,0,0,0.4)",
+                  }}
+                >
+                  <h3 style={{ color: "#93c5fd" }}>🚑 Action Plan</h3>
+                  <p>Ambulances: {ambulances}</p>
+                  <p>Medical Kits: {medicalKits}</p>
+                  <p>Rescue Vans: {rescueVans}</p>
+                </div>
+              </div>
+
+              {/* 🔵 RIGHT PANEL */}
+              <div
+                style={{
+                  position: "relative",
+                  borderRadius: "12px",
+                  overflow: "hidden",
+                  border: "1px solid #334155",
+                }}
+              >
+                <img
+                  src={`http://127.0.0.1:5000/video?source=${item.video_url || 0}`}
+                  style={{ width: "100%" }}
+                />
+
+                {/* OVERLAY */}
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: "10px",
+                    right: "10px",
+                    background: "rgba(15, 23, 42, 0.9)",
+                    padding: "12px",
+                    borderRadius: "10px",
+                    border: "1px solid #334155",
+                    backdropFilter: "blur(6px)",
+                    color: "#fff",
+                  }}
+                >
+                  👥 {peopleCount} <br />
+                  🚑 {ambulances} <br />
+                  💊 {medicalKits}
+                </div>
+              </div>
+            </div>
+
+            {/* 🗺 MAP */}
+            <div
+              style={{
+                marginTop: "20px",
+                background: "#1e293b",
+                padding: "15px",
+                borderRadius: "12px",
+                border: "1px solid #334155",
+                boxShadow: "0 4px 12px rgba(0,0,0,0.4)",
+              }}
+            >
+              <h3 style={{ color: "#93c5fd" }}>📍 Location Map</h3>
+              <MapPlaceholder incidents={incidents} />
+            </div>
+          </div>
+        );
+      })}
     </div>
-
-    {incidents.map((item) => {
-
-      const priority =
-        peopleCount > 10 ? "High" :
-        peopleCount > 5 ? "Medium" : "Low";
-
-      return (
-
-        <div key={item.id}>
-
-          {/* 🔥 INCIDENT SUMMARY (TOP BAR) */}
-          <div style={{
-            background: "#fff",
-            padding: "15px",
-            borderRadius: "12px",
-            marginBottom: "20px",
-            display: "flex",
-            justifyContent: "space-between"
-          }}>
-            <span>📍 {item.location}, {item.district}</span>
-            <span>⚠ {item.disaster_type}</span>
-            <span>👥 {peopleCount} People</span>
-            <span>🚑 {ambulances}</span>
-            <span style={{
-              background: priority === "High" ? "red" :
-                          priority === "Medium" ? "orange" : "green",
-              color: "#fff",
-              padding: "5px 10px",
-              borderRadius: "8px"
-            }}>
-              {priority}
-            </span>
-          </div>
-
-          {/* 🔥 MAIN GRID */}
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1.5fr",
-            gap: "20px"
-          }}>
-
-            {/* 🟢 LEFT PANEL */}
-            <div style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "20px"
-            }}>
-
-              {/* INCIDENT DETAILS */}
-              <div style={{
-                background: "#fff",
-                padding: "20px",
-                borderRadius: "12px"
-              }}>
-                <h3>📌 Incident Details</h3>
-                <p><b>Status:</b> {item.status}</p>
-                <p><b>Priority:</b> {priority}</p>
-              </div>
-
-              {/* DECISION BOX */}
-              <div style={{
-                background: "#fff",
-                padding: "20px",
-                borderRadius: "12px"
-              }}>
-                <h3>🚑 Action Plan</h3>
-                <p>Ambulances: {ambulances}</p>
-                <p>Medical Kits: {medicalKits}</p>
-                <p>Rescue Vans: {rescueVans}</p>
-              </div>
-
-            </div>
-
-            {/* 🔵 RIGHT PANEL (VIDEO) */}
-            <div style={{
-              position: "relative",
-              borderRadius: "12px",
-              overflow: "hidden"
-            }}>
-              <img
-                src={`http://127.0.0.1:5000/video?source=${item.video_url || 0}`}
-                style={{ width: "100%" }}
-              />
-
-              {/* CLEAN PANEL */}
-              <div style={{
-                position: "absolute",
-                bottom: "10px",
-                right: "10px",
-                background: "rgba(0,0,0,0.7)",
-                padding: "10px",
-                borderRadius: "10px",
-                color: "#fff"
-              }}>
-                👥 {peopleCount} <br />
-                🚑 {ambulances} <br />
-                💊 {medicalKits}
-              </div>
-            </div>
-
-          </div>
-
-          {/* 🗺 MAP FULL WIDTH */}
-          <div style={{
-            marginTop: "20px",
-            background: "#fff",
-            padding: "15px",
-            borderRadius: "12px"
-          }}>
-            <h3>📍 Location Map</h3>
-            <MapPlaceholder incidents={incidents} />
-          </div>
-
-        </div>
-      );
-    })}
-  </div>
-);
+  );
 }
 
 export default RescueHome;
