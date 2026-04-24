@@ -23,3 +23,5 @@ If you are developing a production application, we recommend using TypeScript wi
 - Improved UI with dark theme styling
 
 Contributor: Saumya Gupta
+
+Updated by Shilpa
