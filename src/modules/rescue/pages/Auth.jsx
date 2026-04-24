@@ -66,7 +66,7 @@ function Auth() {
             Rescue Control System
           </h1>
           <p className="text-lg">
-            NDRF / SDRF Emergency Response Dashboard
+             SDRF Emergency Response Dashboard
           </p>
         </div>
       </div>

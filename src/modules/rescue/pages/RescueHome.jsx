@@ -67,7 +67,7 @@ function RescueHome() {
       borderRadius: "12px",
       marginBottom: "20px"
     }}>
-      <h1>🚨 Emergency Rescue Dashboard</h1>
+      <h1>🚨Emergency Rescue Dashboard</h1>
     </div>
 
     {incidents.map((item) => {
