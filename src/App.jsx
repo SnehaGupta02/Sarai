@@ -1,9 +1,10 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import Gateway from "./pages/Gateway";
 import CitizenRoutes from "./modules/citizen/routes/CitizenRoutes";
 import AuthoritiesRoutes from "./modules/authorities/routes/AuthoritiesRoutes";
 import SeocRoutes from "./modules/seoc/routes/SeocRoutes";
+import RescueRoutes from "./modules/rescue/routes/RescueRoutes";
 
 import CentralRoutes from "./modules/central/routes/CentralRoutes";
 import ProtectedRoute from "./modules/central/routes/ProtectedRoute";
@@ -12,7 +13,6 @@ import Auth from "./modules/central/pages/Auth";
 function App() {
   return (
     <Routes>
-
       {/* Landing */}
       <Route path="/" element={<Gateway />} />
 
@@ -22,6 +22,9 @@ function App() {
       {/* Other modules */}
       <Route path="/authorities/*" element={<AuthoritiesRoutes />} />
       <Route path="/seoc/*" element={<SeocRoutes />} />
+
+      {/* Rescue */}
+      <Route path="/rescue/*" element={<RescueRoutes />} />
 
       {/* Central */}
       <Route path="/central/auth" element={<Auth />} />
@@ -34,7 +37,6 @@ function App() {
           </ProtectedRoute>
         }
       />
-
     </Routes>
   );
 }
