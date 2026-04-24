@@ -1,7 +1,13 @@
-//Auth.jsx
 import { useState } from "react";
 import { useAuth } from "../../../context/AuthContext";
 import { useNavigate, useLocation } from "react-router-dom";
+import { auth } from "../../../lib/firebase";
+import {
+  RecaptchaVerifier,
+  signInWithPhoneNumber,
+} from "firebase/auth";
+
+let confirmationResult = null;
 
 export default function Auth() {
   const [step, setStep] = useState(1);
@@ -17,36 +23,69 @@ export default function Auth() {
   const from = location.state?.from?.pathname || "/citizen";
 
   // 📱 SEND OTP
-  const sendOTP = () => {
+  const sendOTP = async () => {
     if (phone.length !== 10) {
-      setError("Enter valid 10-digit phone number");
+      setError("Enter valid phone number");
       return;
     }
-
+  
     setError("");
     setLoading(true);
-
-    setTimeout(() => {
-      console.log("Send OTP to:", phone);
+  
+    try {
+      // 🔥 Reset old captcha
+      if (window.recaptchaVerifier) {
+        window.recaptchaVerifier.clear();
+      }
+  
+      window.recaptchaVerifier = new RecaptchaVerifier(
+        auth,
+        "recaptcha-container",
+        {
+          size: "normal", // 👈 visible captcha
+        }
+      );
+  
+      const appVerifier = window.recaptchaVerifier;
+  
+      confirmationResult = await signInWithPhoneNumber(
+        auth,
+        "+91" + phone,
+        appVerifier
+      );
+  
       setStep(2);
-      setLoading(false);
-    }, 800);
+    } catch (err) {
+      console.error(err);
+      setError("Failed to send OTP");
+    }
+  
+    setLoading(false);
   };
 
   // 🔐 VERIFY OTP
-  const verifyOTP = () => {
-    if (otp.length !== 4) {
-      setError("Enter valid 4-digit OTP");
+  const verifyOTP = async () => {
+    if (otp.length !== 6) {
+      setError("Enter valid 6-digit OTP");
       return;
     }
 
     setError("");
     setLoading(true);
 
-    setTimeout(() => {
+    try {
+      await confirmationResult.confirm(otp);
+
+      // ✅ login in your app
       login(phone);
+
       navigate(from, { replace: true });
-    }, 800);
+    } catch (err) {
+      console.error(err);
+      setError("Invalid OTP");
+    }
+
+    setLoading(false);
   };
 
   return (
@@ -100,7 +139,7 @@ export default function Auth() {
               onChange={(e) => {
                 const value = e.target.value
                   .replace(/\D/g, "")
-                  .slice(0, 4);
+                  .slice(0, 6);
                 setOtp(value);
                 setError("");
               }}
@@ -129,10 +168,14 @@ export default function Auth() {
             </button>
           </>
         )}
+
+        {/* 🔥 REQUIRED for Firebase */}
+        <div id="recaptcha-container" style={{marginTop:"15px", display:"flex", justifyContent:"center"}}></div>
       </div>
     </div>
   );
 }
+
 const styles = {
   wrapper: {
     minHeight: "100vh",

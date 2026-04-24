@@ -1,4 +1,3 @@
-//Step4Media.jsx
 export default function Step4Media({
     fileRef,
     preview,

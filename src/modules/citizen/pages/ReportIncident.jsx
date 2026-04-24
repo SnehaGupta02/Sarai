@@ -6,9 +6,8 @@ import { useAuth } from "../../../context/AuthContext";
 import Step1Location from "../components/report/Step1Location";
 import Step2DisasterLocation from "../components/report/Step2DisasterLocation";
 import Step3People from "../components/report/Step3People";
-import Step4Media from "../components/report/Step4Media";
-import Step5Description from "../components/report/Step5Description";
-import Step6Success from "../components/report/Step6Success";
+import Step4Description from "../components/report/Step4Description";
+import Step5Success from "../components/report/Step5Success";
 
 export default function ReportIncident() {
   const [step, setStep] = useState(1);
@@ -97,7 +96,7 @@ export default function ReportIncident() {
     }
   
     alert("Report submitted successfully ✅");
-    setStep(6);
+    setStep(5);
   };
 
   return (
@@ -134,26 +133,14 @@ export default function ReportIncident() {
         )}
 
         {step === 4 && (
-          <Step4Media
-            fileRef={fileRef}
-            preview={preview}
-            setPreview={setPreview}
-            fileData={fileData}
-            setFileData={setFileData}
-            next={next}
-            back={back}
-          />
-        )}
-
-        {step === 5 && (
-          <Step5Description
+          <Step4Description
             setDescription={setDescription}
             submitReport={submitReport}
             back={back}
           />
         )}
 
-        {step === 6 && <Step6Success />}
+        {step === 5 && <Step5Success />}
       </div>
     </>
   );

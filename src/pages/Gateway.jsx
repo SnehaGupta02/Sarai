@@ -1,5 +1,6 @@
 //Gateway.jsx
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const roles = [
   {
@@ -17,13 +18,13 @@ const roles = [
   {
     title: "Authorities",
     desc: "Manage incidents & teams",
-    route: "/authorities/auth",
+    route: "/admin",
     icon: "🧑‍💼",
   },
   {
     title: "Central Govt",
     desc: "Monitor nationwide data",
-    route: "/central",
+    route: "/super-admin",
     icon: "🏛️",
   },
   {
@@ -36,7 +37,7 @@ const roles = [
 
 export default function Gateway() {
   const navigate = useNavigate();
-
+  const { user } = useAuth();
   return (
     <div style={styles.container}>
       <div style={styles.overlay}></div>
@@ -51,7 +52,17 @@ export default function Gateway() {
           <div
             key={index}
             style={styles.card}
-            onClick={() => navigate(role.route)}
+            onClick={() => {
+              if (role.route === "/citizen") {
+                if (user) {
+                  navigate("/citizen");
+                } else {
+                  navigate("/citizen/auth");
+                }
+              } else {
+                alert(`${role.title} module coming soon`);
+              }
+            }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = "translateY(-10px) scale(1.03)";
               e.currentTarget.style.boxShadow =
