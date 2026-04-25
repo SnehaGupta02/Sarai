@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import Hls from "hls.js";
 
-const DroneStream = () => {
+const DroneStream = ({ className = "" }) => {
   const videoRef = useRef(null);
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const DroneStream = () => {
       ref={videoRef}
       controls
       autoPlay
-      style={{ width: "100%" }}
+      className={`w-full h-full object-cover ${className}`}
     />
   );
 };
