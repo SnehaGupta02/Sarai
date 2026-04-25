@@ -7,6 +7,8 @@ import DetectionPanel from "../components/incident/DetectionPanel";
 import ActionPanel from "../components/incident/ActionPanel";
 import Button from "../components/common/Button";
 
+import DroneStream from "../../../components/DroneStream";
+
 export default function IncidentDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -16,7 +18,6 @@ export default function IncidentDetail() {
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState("");
 
-  // SINGLE SOURCE OF TRUTH
   const fetchIncident = useCallback(async () => {
     setLoading(true);
 
@@ -36,12 +37,10 @@ export default function IncidentDetail() {
     setLoading(false);
   }, [id]);
 
-  // INITIAL LOAD
   useEffect(() => {
     if (id) fetchIncident();
   }, [id, fetchIncident]);
 
-  // AFTER ACTION MESSAGE
   useEffect(() => {
     if (location.state?.message) {
       setMessage(location.state.message);
@@ -50,7 +49,22 @@ export default function IncidentDetail() {
     }
   }, [location.state, fetchIncident]);
 
-  // ✅ UPDATED STATUS STYLE (RESOLVED ADDED)
+  const assignDrone = async () => {
+    const { error } = await supabase
+      .from("incidents")
+      .update({
+        stream_url: "http://10.57.54.227:8080/live/drone1.m3u8",
+      })
+      .eq("id", id);
+
+    if (error) {
+      console.error("❌ Drone assign failed:", error);
+    } else {
+      setMessage("🚁 Drone assigned successfully");
+      fetchIncident();
+    }
+  };
+
   const getStatusStyle = () => {
     if (incident?.status === "resolved")
       return "bg-blue-500/20 text-blue-400";
@@ -64,7 +78,6 @@ export default function IncidentDetail() {
     return "bg-yellow-500/20 text-yellow-400";
   };
 
-  // CLEAN TITLE FROM DB
   const getIncidentTitle = () => {
     if (!incident) return "";
 
@@ -102,17 +115,35 @@ export default function IncidentDetail() {
           </p>
         </div>
 
-        <span className={`px-3 py-1 rounded-full text-sm ${getStatusStyle()}`}>
-          {incident.status}
-        </span>
+        <div className="flex flex-col items-end gap-2">
+          <span className={`px-3 py-1 rounded-full text-sm ${getStatusStyle()}`}>
+            {incident.status}
+          </span>
+
+          {!incident.stream_url && (
+            <Button onClick={assignDrone}>
+              🚁 Assign Drone
+            </Button>
+          )}
+        </div>
       </div>
 
       {/* MAIN GRID */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-        {/* LIVE STREAM */}
+        {/* 🔥 LIVE STREAM WITH OVERLAY */}
         <div className="lg:col-span-2 bg-slate-800 rounded-xl p-4">
-          <LiveStreamPlayer />
+
+          {incident.stream_url ? (
+            <DroneStream>
+              <LiveStreamPlayer />
+            </DroneStream>
+          ) : (
+            <p className="text-slate-400 text-center">
+              No drone assigned
+            </p>
+          )}
+
         </div>
 
         {/* ANALYSIS */}
@@ -127,14 +158,25 @@ export default function IncidentDetail() {
         <div className="flex justify-between items-center">
           <h3 className="text-lg font-semibold">Actions</h3>
 
-          <Button
-            variant="outline"
-            onClick={() =>
-              navigate(`/authorities/incident/${incident.id}/status`)
-            }
-          >
-            View Status
-          </Button>
+          <div className="flex gap-3">
+            {/* ✅ NEW BUTTON ADDED */}
+            <Button
+              onClick={() =>
+                navigate(`/authorities/incident/${incident.id}/volunteers`)
+              }
+            >
+              Manage Volunteers
+            </Button>
+
+            <Button
+              variant="outline"
+              onClick={() =>
+                navigate(`/authorities/incident/${incident.id}/status`)
+              }
+            >
+              View Status
+            </Button>
+          </div>
         </div>
 
         <ActionPanel
